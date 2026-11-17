@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cascade · logo options</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root {
+    --mist: #EDF3F6; --card: #F8FBFC; --ink: #0C2333; --muted: #4A6272;
+    --light: #8ED8E8; --aqua: #39BFD6; --water: #1A86C7; --deep: #0F5E8F;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 48px 40px 80px; background: var(--mist); color: var(--ink); font-family: 'Space Grotesk', Arial, sans-serif; }
+  h1 { margin: 0; font-size: 40px; }
+  .intro { margin: 8px 0 36px; color: var(--muted); font-size: 18px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 28px; }
+  .opt { background: var(--card); border-radius: 14px; padding: 28px; box-shadow: 0 10px 30px rgba(12,35,51,.07); }
+  .opt header { display: flex; align-items: baseline; gap: 12px; }
+  .letter { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--deep); font-size: 18px; }
+  .opt h2 { margin: 0; font-size: 26px; }
+  .opt p { margin: 6px 0 20px; color: var(--muted); font-size: 16px; line-height: 1.45; }
+  .hero { display: grid; place-items: center; height: 220px; background: var(--mist); border-radius: 10px; }
+  .hero svg { width: 170px; height: 170px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  .row > * { min-width: 0; }
+  .lockup .word { font-size: 26px; }
+  .lockup { display: flex; align-items: center; gap: 12px; padding: 18px; border-radius: 10px; background: var(--mist); }
+  .lockup.dark { background: var(--ink); }
+  .lockup svg { width: 44px; height: 44px; flex: none; }
+  .word { font-size: 32px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+  .dark .word { color: var(--mist); }
+  .small { display: flex; align-items: center; gap: 18px; margin-top: 12px; padding: 12px 18px; border-radius: 10px; background: var(--mist); font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--muted); }
+  .small svg { flex: none; }
+</style>
+</head>
+<body>
+<h1>Cascade · logo options</h1>
+<p class="intro">Six directions in the deck’s blues. Each shows the mark large, as a lockup on light and dark, and at favicon size.</p>
+<div class="grid" id="grid"></div>
+
+<script>
+const C = { light: '#8ED8E8', aqua: '#39BFD6', water: '#1A86C7', deep: '#0F5E8F', ink: '#0C2333', mist: '#EDF3F6' };
+
+function drop(cx, cy, s, fill) {
+  return `<path fill="${fill}" d="M${cx} ${cy - s * 1.45} C${cx + s * 0.25} ${cy - s * 0.95} ${cx + s} ${cy - s * 0.35} ${cx + s} ${cy + s * 0.1} A${s} ${s} 0 0 1 ${cx - s} ${cy + s * 0.1} C${cx - s} ${cy - s * 0.35} ${cx - s * 0.25} ${cy - s * 0.95} ${cx} ${cy - s * 1.45} Z"/>`;
+}
+
+// Each mark is drawn in a 120×120 box. `dark` swaps ink-coloured parts for light ones.
+const options = [
+  {
+    name: 'Falls',
+    note: 'Water running over three ledges, the deck’s opening picture reduced to a mark.',
+    svg: (dark) => `
+      <rect x="8" y="30" width="38" height="7" rx="2" fill="${dark ? C.mist : C.ink}"/>
+      <rect x="41" y="60" width="38" height="7" rx="2" fill="${dark ? C.mist : C.ink}"/>
+      <rect x="74" y="90" width="38" height="7" rx="2" fill="${dark ? C.mist : C.ink}"/>
+      <path d="M13 25 H40 C48 25 51 31 51 39 V48 Q51 55 58 55 H73 C81 55 84 61 84 69 V78 Q84 85 91 85 H106" fill="none" stroke="${C.aqua}" stroke-opacity=".35" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M13 25 H40 C48 25 51 31 51 39 V48 Q51 55 58 55 H73 C81 55 84 61 84 69 V78 Q84 85 91 85 H106" fill="none" stroke="${C.water}" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>`
+  },
+  {
+    name: 'Ribbon',
+    note: 'One continuous stream stepping down twice, light at the source and deep at the end.',
+    svg: () => `
+      <defs><linearGradient id="rib" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="${C.light}"/><stop offset=".55" stop-color="${C.aqua}"/><stop offset="1" stop-color="${C.deep}"/>
+      </linearGradient></defs>
+      <path d="M12 22 H34 C52 22 50 60 66 60 H70 C88 60 86 98 104 98 H108" fill="none" stroke="url(#rib)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>`
+  },
+  {
+    name: 'Droplets',
+    note: 'Four drops falling down a diagonal, one per record, growing and deepening as the change moves on.',
+    svg: () => drop(22, 28, 8, C.light) + drop(45, 50, 10, C.aqua) + drop(70, 73, 12, C.water) + drop(97, 98, 13, C.deep)
+  },
+  {
+    name: 'Stair tile',
+    note: 'An app-icon tile: a staircase of water on deep blue. Strong at small sizes.',
+    svg: () => `
+      <rect width="120" height="120" rx="28" fill="${C.ink}"/>
+      <path d="M24 34 H50 V58 H74 V82 H96" fill="none" stroke="${C.aqua}" stroke-opacity=".3" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M24 34 H50 V58 H74 V82 H96" fill="none" stroke="${C.light}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>`
+  },
+  {
+    name: 'Wave steps',
+    note: 'Three waves, each one a step lower than the last: a calmer, softer take on the cascade.',
+    svg: () => {
+      const wave = (x, y, col) => `<path d="M${x} ${y} q8 -9 16 0 t16 0 t16 0 t16 0" fill="none" stroke="${col}" stroke-width="8" stroke-linecap="round"/>`;
+      return wave(8, 30, C.light) + wave(28, 60, C.aqua) + wave(48, 90, C.water);
+    }
+  },
+  {
+    name: 'Monogram',
+    note: 'A C whose opening spills water down in steps. Works as a letter mark beside the word.',
+    svg: (dark) => `
+      <path d="M89.7 30.3 A42 42 0 1 0 89.7 89.7" fill="none" stroke="${dark ? C.mist : C.ink}" stroke-width="13" stroke-linecap="round"/>
+      <path d="M66 44 H86" stroke="${C.light}" stroke-width="8" stroke-linecap="round"/>
+      <path d="M74 60 H96" stroke="${C.aqua}" stroke-width="8" stroke-linecap="round"/>
+      <path d="M82 76 H106" stroke="${C.water}" stroke-width="8" stroke-linecap="round"/>`
+  }
+];
+
+const mark = (o, size, dark) => `<svg viewBox="0 0 120 120" width="${size}" height="${size}" aria-hidden="true">${o.svg(dark)}</svg>`;
+
+document.getElementById('grid').innerHTML = options.map((o, i) => `
+  <section class="opt">
+    <header><span class="letter">${String.fromCharCode(65 + i)}</span><h2>${o.name}</h2></header>
+    <p>${o.note}</p>
+    <div class="hero">${mark(o, 170, false)}</div>
+    <div class="row">
+      <div class="lockup">${mark(o, 44, false)}<span class="word">cascade</span></div>
+      <div class="lockup dark">${mark(o, 44, true)}<span class="word">cascade</span></div>
+    </div>
+    <div class="small">${mark(o, 32, false)}${mark(o, 16, false)}<span>favicon 32 · 16 px</span></div>
+  </section>`).join('');
+</script>
+</body>
+</html>
