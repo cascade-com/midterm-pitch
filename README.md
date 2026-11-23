@@ -29,8 +29,8 @@ A presentation clicker works too: it sends PageDown and PageUp. The address bar 
 ## Scenes
 
 1. **Vision:** Cascade, agents for every step of a hardware change.
-2. **The chain:** non-conformity → root-cause analysis → change request → change implementation, with an agent on each handover. The last step brings in a magnifying glass that settles on the Downstream Agent and dives into scene 3.
-3. **Zoomed in:** how change request to change implementation runs today, with one friction per step and the loop back to the engineer.
+2. **The chain:** non-conformity → root-cause analysis → change request → change implementation, with an agent on each handover. The last step brings in a magnifying glass that ticks off the finished steps and settles on the Downstream Agent; one more click dives into scene 3.
+3. **Zoomed in:** one discontinued connector affects five departments; then one click per board round (redesign, test, approved) and the real case.
 4. **Demo:** plays `assets/demo.mp4` if it exists, else shows a placeholder for switching to the live demo.
 5. **What it changes:** three benefits, where we are, and what comes until the Design Fair.
 

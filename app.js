@@ -20,8 +20,8 @@
   // Lens geometry in canvas pixels. R0 is the lens element's own radius;
   // every size change is a transform scale, so nothing is laid out or re-clipped per frame.
   const R0 = 285;
-  const START = { x: 323, y: 780 };
-  const TARGET = { x: 1451, y: 780 };
+  const START = { x: 323, y: 830 };
+  const TARGET = { x: 1451, y: 830 };
   const MAG = 1.7;
   const FALL_X = 1720; // where the stream leaves the opening scene and enters the chain scene
 
@@ -29,6 +29,7 @@
   let si = 0;
   let st = 0;
   let busy = false;
+  let parked = false; // the magnifier rests on the Downstream Agent and waits for the click that dives in
 
   // ---------- helpers ----------
   const lerp = (a, b, t) => a + (b - a) * t;
@@ -60,6 +61,7 @@
   const stepsOf = (i) => Math.max(1, Number(scenes[i].dataset.steps) || 1);
 
   function applySteps(scene, n) {
+    scene.dataset.at = n;
     scene.querySelectorAll('[data-step]').forEach((el) => {
       el.classList.toggle('shown', Number(el.dataset.step) <= n);
     });
@@ -159,18 +161,32 @@
       lens.s = lerp(0.85, 1, p);
       drawLens();
     }, easeOut);
-    await tween(1700, (p) => {
+    await tween(2600, (p) => {
       lens.x = lerp(START.x, TARGET.x, p);
       lens.y = lerp(START.y, TARGET.y, p);
       drawLens();
+      tickUpTo(lens.x);
     });
   }
 
-  // One click: the magnifier appears, glides to the Downstream Agent and dives into the next scene.
+  // Ticks the finished steps in the scene and in the magnifier's copy of it.
+  function tickUpTo(x) {
+    stage.querySelectorAll('.check').forEach((el) => {
+      if (x >= Number(el.dataset.x)) el.classList.add('done');
+    });
+  }
+
+  function clearTicks() {
+    stage.querySelectorAll('.check').forEach((el) => el.classList.remove('done'));
+  }
+
+  // First click: the magnifier appears, ticks off the finished steps and stops at the Downstream Agent.
+  // Second click: it dives into the next scene.
   async function zoomInto() {
     busy = true;
     await lensIn();
-    await dive();
+    parked = true;
+    busy = false;
   }
 
   async function dive() {
@@ -248,11 +264,13 @@
 
   function leaveScene(scene) {
     scene.classList.remove('pour', 'pre-pour');
+    if (scene === scenes[CHAIN]) clearTicks();
   }
 
   // ---------- navigation ----------
   function goScene(target, step) {
     if (si === CHAIN) hideLens();
+    parked = false;
     if (scenes[si].id === 'demo') video.pause();
     leaveScene(scenes[si]);
     scenes[si].classList.remove('active');
@@ -268,6 +286,11 @@
 
   function next() {
     if (busy) return;
+    if (parked) {
+      parked = false;
+      dive();
+      return;
+    }
     if (st < stepsOf(si) - 1) {
       st++;
       applySteps(scenes[si], st);
@@ -287,6 +310,12 @@
 
   function prev() {
     if (busy) return;
+    if (parked) {
+      parked = false;
+      hideLens();
+      clearTicks();
+      return;
+    }
     if (st > 0) {
       st--;
       applySteps(scenes[si], st);

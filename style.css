@@ -8,6 +8,7 @@
   --water-ink: #0F5E8F;
   --aqua: #39BFD6;
   --foam: #CFE8F2;
+  --done: #1F8A5B;
   --rock: #C8553D;
   --rock-ink: #B4472F;
   --display: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
@@ -71,7 +72,7 @@ p { margin: 0; }
 .scene.instant { transition: none; }
 
 .scene.from-zoom {
-  transform-origin: 1451px 780px;
+  transform-origin: 1451px 830px;
   animation: settle 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
@@ -129,6 +130,7 @@ h1, h2, h3 {
 }
 
 .head h2.one-line { font-size: 58px; }
+.head h2 .late { display: inline-block; }
 
 /* 1 · Hero */
 .hero-title {
@@ -247,14 +249,15 @@ h1, h2, h3 {
 .stagecard {
   top: 370px;
   width: 306px;
-  min-height: 170px;
-  padding: 28px;
+  height: 364px;
+  padding: 24px 28px;
   background: var(--card);
   border: 2px solid var(--ink);
   border-radius: 6px;
 }
 
 .stagecard.ghost {
+  height: 170px;
   background: transparent;
   border: 2px dashed #8FA3AF;
   padding: 28px 20px;
@@ -269,6 +272,7 @@ h1, h2, h3 {
 
 .stagecard .name {
   margin-top: 12px;
+  min-height: 70px;
   font-family: var(--display);
   font-size: 32px;
   font-weight: 600;
@@ -276,17 +280,74 @@ h1, h2, h3 {
 }
 
 .stagecard .desc {
-  margin-top: 12px;
+  margin-top: 10px;
+  min-height: 62px;
   font-size: 23px;
   line-height: 1.35;
   color: var(--muted);
 }
 
+.stagecard .example {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 2px solid var(--foam);
+  font-size: 23px;
+  line-height: 1.3;
+}
+
+.stagecard .example span {
+  display: block;
+  margin-bottom: 4px;
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--water-ink);
+}
+
+/* Ticked while the magnifier passes: what is already settled when the Downstream Agent starts */
+.stagecard .check {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 8px;
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #fff;
+  background: var(--done);
+  border-radius: 19px;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.25s ease, transform 0.4s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.stagecard .check.done { opacity: 1; transform: none; }
+
+.stagecard .check path {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.35s ease 0.2s;
+}
+
+.stagecard .check.done path { stroke-dashoffset: 0; }
+
 .stagecard.ghost .name { font-size: 26px; }
 .stagecard.ghost .desc { font-size: 21px; }
 
 .agent {
-  top: 720px;
+  top: 772px;
   width: 340px;
   padding: 22px 26px 24px;
   background: var(--card);
@@ -466,13 +527,13 @@ h1, h2, h3 {
 
 .benefit h3 {
   margin-top: 0;
-  font-size: 40px;
+  font-size: 46px;
   line-height: 1.1;
 }
 
 .benefit .text {
   margin-top: 14px;
-  font-size: 30px;
+  font-size: 32px;
   line-height: 1.4;
   color: var(--muted);
 }
@@ -721,6 +782,13 @@ h1, h2, h3 {
   color: var(--muted);
 }
 
+/* Keeps the ripple rings from running through a line of text */
+#asis .clear {
+  padding: 2px 14px;
+  background: #E9F1F5;
+  border-radius: 6px;
+}
+
 #asis .ring {
   fill: none;
   stroke: var(--water);
@@ -774,11 +842,86 @@ h1, h2, h3 {
   line-height: 1.3;
 }
 
-/* Step 3: everything turns red — today each of these surfaces only at the board */
-#asis:has(.loopband.shown) .dept { border-color: var(--rock); }
-#asis:has(.loopband.shown) .dept .label { color: var(--rock-ink); }
-#asis:has(.loopband.shown) .dept-dot { fill: var(--rock); }
-#asis:has(.loopband.shown) .ring { stroke: var(--rock); }
+/* Steps 2–5: one board round per click. Only the card that causes the round stands out. */
+#asis:is([data-at="2"], [data-at="3"], [data-at="4"], [data-at="5"]) .dept { transition-delay: 0ms; }
+.dept .label, .dept .text { transition: color 0.4s ease; }
+
+/* The others step back by color only: a see-through card would let the rings run through its text */
+#asis:is([data-at="2"], [data-at="3"]) .dept { border-color: var(--line); box-shadow: none; }
+#asis:is([data-at="2"], [data-at="3"]) .dept :is(.label, .text) { color: #A3B4BF; }
+
+#asis[data-at="2"] .dept.eng.shown,
+#asis[data-at="3"] .dept.test.shown {
+  transform: scale(1.08);
+  border-color: var(--rock);
+  box-shadow: 0 14px 36px rgba(12, 35, 51, 0.16);
+}
+
+#asis .dept.center { transform-origin: 50% 100%; }
+
+#asis[data-at="2"] .dept.eng .label,
+#asis[data-at="3"] .dept.test .label { color: var(--rock-ink); }
+
+#asis[data-at="2"] .dept.eng .text,
+#asis[data-at="3"] .dept.test .text { color: var(--ink); }
+
+#asis[data-at="2"] .dept-dot.eng,
+#asis[data-at="3"] .dept-dot.test { fill: var(--rock); }
+
+#asis:is([data-at="3"], [data-at="4"], [data-at="5"]) .dept.eng,
+#asis:is([data-at="4"], [data-at="5"]) .dept.test { border-color: var(--done); }
+
+#asis:is([data-at="3"], [data-at="4"], [data-at="5"]) .dept-dot.eng,
+#asis:is([data-at="4"], [data-at="5"]) .dept-dot.test { fill: var(--done); }
+
+/* What the department says in the board */
+.dept .ask {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 8px);
+  padding: 8px 16px 9px;
+  text-align: center;
+  font-family: var(--display);
+  font-size: 25px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #fff;
+  background: var(--rock-ink);
+  border-radius: 6px;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#asis[data-at="2"] .dept.eng .ask,
+#asis[data-at="3"] .dept.test .ask {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.35s;
+}
+
+.dept.center .ask { top: calc(100% + 4px); padding: 6px 16px 7px; }
+
+/* Solved, but a round later */
+.dept .fixed {
+  position: absolute;
+  top: -18px;
+  left: 16px;
+  padding: 4px 14px 5px;
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--done);
+  border-radius: 18px;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.25s ease, transform 0.4s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+#asis:is([data-at="3"], [data-at="4"], [data-at="5"]) .dept.eng .fixed,
+#asis:is([data-at="4"], [data-at="5"]) .dept.test .fixed { opacity: 1; transform: none; }
 
 #asis .late-line {
   text-align: center;
@@ -826,21 +969,45 @@ h1, h2, h3 {
   opacity: 0;
 }
 
-.round.weeks { font-family: var(--display); font-size: 30px; color: var(--rock-ink); }
+.round { transition: opacity 0.3s ease; }
+.round.r1, .round.r2 { color: var(--rock-ink); }
+.round.r3 { color: var(--done); }
+.round.weeks { font-family: var(--display); font-size: 28px; line-height: 1.15; color: var(--rock-ink); }
 
-#asis .loopband.shown .loop-pulse { animation: lap 1.3s linear 0.5s 3 both, appear 0.2s ease 0.5s both; }
-#asis .loopband.shown .r1 { animation: round-window 1.3s linear 0.5s both; }
-#asis .loopband.shown .r2 { animation: round-window 1.3s linear 1.8s both; }
-#asis .loopband.shown .r3 { animation: round-window 1.3s linear 3.1s both; }
-#asis .loopband.shown .weeks { animation: appear 0.4s ease 4.4s both; }
+.round.weeks span {
+  display: block;
+  font-family: var(--mono);
+  font-size: 17px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+#asis[data-at="2"] .r1,
+#asis[data-at="3"] .r2,
+#asis[data-at="4"] .r3,
+#asis[data-at="5"] .weeks { opacity: 1; transition-delay: 0.25s; }
+
+/* The change travels to the board and back; in round 3 it only goes there and is approved */
+#asis[data-at="2"] .p1,
+#asis[data-at="3"] .p2 { animation: lap 2.2s ease-in-out 0.4s 1 both, pulse-life 2.2s linear 0.4s both; }
+#asis[data-at="4"] .p3 { stroke: var(--done); animation: there 1.1s ease-in-out 0.3s 1 both, pulse-life 1.1s linear 0.3s both; }
+
+#asis .loop-node.board { transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease; }
+#asis:is([data-at="4"], [data-at="5"]) .loop-node.board { color: #fff; background: var(--done); border-color: var(--done); transition-delay: 1.1s; }
+#asis[data-at="4"] .r3 { transition-delay: 1.1s; }
+
+@keyframes pulse-life {
+  0%, 100% { opacity: 0; }
+  8%, 92% { opacity: 1; }
+}
+
+@keyframes there {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -86; }
+}
 
 @keyframes lap {
   from { stroke-dashoffset: 0; }
   to { stroke-dashoffset: -100; }
-}
-
-@keyframes round-window {
-  0% { opacity: 0; }
-  10%, 85% { opacity: 1; }
-  100% { opacity: 0; }
 }

@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
 <link rel="icon" type="image/svg+xml" href="assets/brand/cascade_mark.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon_32.png">
-<link rel="stylesheet" href="style.css?v=11">
+<link rel="stylesheet" href="style.css?v=19">
 </head>
 <body>
 <div id="stage" class="paper">
@@ -31,11 +31,11 @@
       <path id="falls-shine" class="water-shine" d="" />
     </svg>
     <div class="abs falls-labels fade" data-step="0" style="left:0;top:0;--d:250ms">
-      <span style="left:1026px;top:362px">Report</span>
-      <span style="left:1176px;top:482px">NC</span>
-      <span style="left:1326px;top:602px">RCA</span>
-      <span style="left:1476px;top:722px">CR</span>
-      <span style="left:1626px;top:842px">CI</span>
+      <span style="right:822px;top:362px">Problem</span>
+      <span style="right:676px;top:482px">Non-conformity</span>
+      <span style="right:526px;top:602px">Root-cause analysis</span>
+      <span style="right:376px;top:722px">Change request</span>
+      <span style="right:232px;top:842px">Change implementation</span>
     </div>
 
     <div class="abs waves" aria-hidden="true">
@@ -47,32 +47,43 @@
     <p class="abs byline" style="left:128px;top:900px">Fritz Kuermayr · Julian Lüers · Delong Chen</p>
   </section>
 
-  <!-- 2 · The chain and its agents. The last click sends the magnifier to the Downstream Agent and dives into scene 3. -->
-  <section class="scene" id="chain" data-steps="2">
+  <!-- 2 · The chain and its agents. One more click sends the magnifier to the Downstream Agent, ticking off the finished steps on its way; the next one dives into scene 3. -->
+  <section class="scene" id="chain" data-steps="3">
     <div class="abs head">
       <p class="eyebrow">From problem to production</p>
-      <h2>Every hardware change runs through four steps.<br>We put an AI agent on each.</h2>
+      <h2>From a problem to a finished change, in four steps.<br><span class="late" data-step="2">We’re building an AI agent for each.</span></h2>
     </div>
 
     <div class="abs stagecard ghost" data-step="0" style="left:128px;width:160px">
       <p class="code">—</p>
-      <p class="name">Problem in the field</p>
+      <p class="name">Problem spotted</p>
     </div>
     <div class="abs stagecard" data-step="0" style="left:358px;--d:80ms">
       <p class="code">NC</p>
+      <span class="check" data-x="511"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path pathLength="1" d="M4 11.5 L9 16.5 L18 6" /></svg></span>
       <p class="name">Non-conformity</p>
+      <p class="desc">Something isn’t as it should be</p>
+      <p class="example" data-step="1"><span>Example</span>The screw holes of a bracket don’t line up</p>
     </div>
     <div class="abs stagecard" data-step="0" style="left:734px;--d:160ms">
       <p class="code">RCA</p>
+      <span class="check" data-x="887"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path pathLength="1" d="M4 11.5 L9 16.5 L18 6" /></svg></span>
       <p class="name">Root-cause analysis</p>
+      <p class="desc">Why did it happen?</p>
+      <p class="example" data-step="1"><span>Example</span>The drawings allow too much deviation</p>
     </div>
     <div class="abs stagecard" data-step="0" style="left:1110px;--d:240ms">
       <p class="code">CR</p>
+      <span class="check" data-x="1263"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path pathLength="1" d="M4 11.5 L9 16.5 L18 6" /></svg>Solution chosen</span>
       <p class="name">Change request</p>
+      <p class="desc">What should change?</p>
+      <p class="example" data-step="1"><span>Example</span>Make the holes slightly bigger</p>
     </div>
     <div class="abs stagecard" data-step="0" style="left:1486px;--d:320ms">
       <p class="code">CI</p>
       <p class="name">Change implementation</p>
+      <p class="desc">Make it real, everywhere</p>
+      <p class="example" data-step="1"><span>Example</span>New drawings, parts and instructions</p>
     </div>
 
     <svg class="abs overlay" width="1920" height="1080" viewBox="0 0 1920 1080" aria-hidden="true">
@@ -82,11 +93,11 @@
         <line class="stream" x1="1044" y1="455" x2="1104" y2="455" />
         <line class="stream" x1="1420" y1="455" x2="1480" y2="455" />
       </g>
-      <g class="fade" data-step="1">
-        <line class="tie" x1="323" y1="469" x2="323" y2="712" />
-        <line class="tie" x1="699" y1="469" x2="699" y2="712" />
-        <line class="tie" x1="1075" y1="469" x2="1075" y2="712" />
-        <line class="tie built" x1="1451" y1="469" x2="1451" y2="712" />
+      <g class="fade" data-step="2">
+        <line class="tie" x1="323" y1="469" x2="323" y2="772" />
+        <line class="tie" x1="699" y1="469" x2="699" y2="772" />
+        <line class="tie" x1="1075" y1="469" x2="1075" y2="772" />
+        <line class="tie built" x1="1451" y1="469" x2="1451" y2="772" />
         <circle class="drop" cx="323" cy="455" r="7" />
         <circle class="drop" cx="699" cy="455" r="7" />
         <circle class="drop" cx="1075" cy="455" r="7" />
@@ -114,26 +125,30 @@
       </g>
     </svg>
 
-    <div class="abs agent" data-step="1" style="left:153px">
+    <div class="abs agent" data-step="2" style="left:153px">
       <p class="badge">Concept</p>
       <p class="name">First Notice of Loss Agent</p>
+      <p class="desc">Interviews whoever spots it, writes the report</p>
     </div>
-    <div class="abs agent" data-step="1" style="left:529px;--d:120ms">
+    <div class="abs agent" data-step="2" style="left:529px;--d:120ms">
       <p class="badge">Concept</p>
       <p class="name">Root Cause Agent</p>
+      <p class="desc">Suggests likely causes</p>
     </div>
-    <div class="abs agent" data-step="1" style="left:905px;--d:240ms">
+    <div class="abs agent" data-step="2" style="left:905px;--d:240ms">
       <p class="badge">Concept</p>
       <p class="name">Solution Design Agent</p>
+      <p class="desc">Helps find the right fix</p>
     </div>
-    <div class="abs agent built" data-step="1" style="left:1281px;--d:360ms">
+    <div class="abs agent built" data-step="2" style="left:1281px;--d:360ms">
       <p class="badge">Built</p>
       <p class="name">Downstream Agent</p>
+      <p class="desc">Finds out who the fix affects</p>
     </div>
   </section>
 
   <!-- 3 · The demo case (ORB-391): a discontinued connector ripples out to five departments, found only at the board -->
-  <section class="scene" id="asis" data-steps="3">
+  <section class="scene" id="asis" data-steps="6">
     <div class="abs head">
       <p class="eyebrow">Change request → change implementation · example</p>
       <h2 class="one-line">One discontinued connector. Five departments affected.</h2>
@@ -153,19 +168,20 @@
         <g class="pins new"><circle cx="960" cy="596" r="6" /><circle cx="981" cy="632" r="6" /><circle cx="939" cy="632" r="6" /><circle class="pe" cx="960" cy="620" r="9" /></g>
       </g>
       <g class="fade" data-step="1" style="--d:900ms">
-        <circle class="dept-dot" cx="960" cy="425" r="8" />
+        <circle class="dept-dot test" cx="960" cy="425" r="8" />
         <circle class="dept-dot" cx="596" cy="522" r="8" />
         <circle class="dept-dot" cx="1324" cy="522" r="8" />
-        <circle class="dept-dot" cx="596" cy="718" r="8" />
+        <circle class="dept-dot eng" cx="596" cy="718" r="8" />
         <circle class="dept-dot" cx="1324" cy="718" r="8" />
       </g>
     </svg>
 
     <p class="abs fix-dim" data-step="0" style="left:660px;top:748px;width:600px;--d:200ms">Cutout Ø21 → Ø31 mm · new pin layout</p>
-    <p class="abs fix-quote" data-step="0" style="left:660px;top:786px;width:600px;--d:350ms">“Just swap in the successor.”</p>
+    <p class="abs fix-quote" data-step="0" style="left:660px;top:786px;width:600px;--d:350ms"><span class="clear">“Just swap in the successor.”</span></p>
 
-    <div class="abs dept center" data-step="1" style="left:760px;top:317px;--d:950ms">
-      <p class="label">Testing</p><p class="text">Passed tests<br>may no longer count</p>
+    <div class="abs dept center test" data-step="1" style="left:760px;top:317px;--d:950ms">
+      <p class="label">Testing</p><p class="text">Waterproof test<br>may no longer count</p>
+      <p class="ask">“Is it still waterproof?”</p><p class="fixed">✓ Tested</p>
     </div>
     <div class="abs dept left" data-step="1" style="left:176px;top:478px;--d:1050ms">
       <p class="label">Customer</p><p class="text">Must approve first</p>
@@ -173,35 +189,38 @@
     <div class="abs dept right" data-step="1" style="left:1344px;top:478px;--d:1150ms">
       <p class="label">Supply chain</p><p class="text">Last-time buy<br>85 in stock</p>
     </div>
-    <div class="abs dept left" data-step="1" style="left:176px;top:674px;--d:1250ms">
+    <div class="abs dept left eng" data-step="1" style="left:176px;top:674px;--d:1250ms">
       <p class="label">Engineering</p><p class="text">Both mating cables<br>must change</p>
+      <p class="ask">“It doesn’t fit our cable.”</p><p class="fixed">✓ Redesigned</p>
     </div>
     <div class="abs dept right" data-step="1" style="left:1344px;top:674px;--d:1350ms">
       <p class="label">Production</p><p class="text">Assembly step changes</p>
     </div>
 
-    <!-- Today: the change goes engineer → board → back, three times -->
+    <!-- Today, one click per board round: redesign, test, approved; the last click shows the real case -->
     <div class="abs loopband fade" data-step="2" style="left:0;top:860px;width:1920px;height:220px">
-      <p class="abs late-line" style="left:128px;top:0;width:1664px">Today: found at the board, one round at a time.</p>
+      <p class="abs late-line" style="left:128px;top:0;width:1664px"><span class="clear">Today: every surprise is another round.</span></p>
       <svg class="abs" style="left:0;top:0" width="1920" height="220" viewBox="0 0 1920 220" aria-hidden="true">
         <path class="loop-forward" d="M630 135 A330 38 0 0 1 1290 135" />
         <path class="loop-back" d="M1290 135 A330 38 0 0 1 630 135" />
-        <path class="loop-pulse" pathLength="100" d="M630 135 A330 38 0 0 1 1290 135 A330 38 0 0 1 630 135" />
+        <path class="loop-pulse p1" pathLength="100" d="M630 135 A330 38 0 0 1 1290 135 A330 38 0 0 1 630 135" />
+        <path class="loop-pulse p2" pathLength="100" d="M630 135 A330 38 0 0 1 1290 135 A330 38 0 0 1 630 135" />
+        <path class="loop-pulse p3" pathLength="100" d="M630 135 A330 38 0 0 1 1290 135" />
       </svg>
       <p class="abs loop-node" style="left:530px;top:107px">Engineer</p>
-      <p class="abs loop-node" style="left:1190px;top:107px">Change board</p>
-      <p class="abs round r1" style="left:760px;top:116px">Round 1</p>
-      <p class="abs round r2" style="left:760px;top:116px">Round 2</p>
-      <p class="abs round r3" style="left:760px;top:116px">Round 3</p>
-      <p class="abs round weeks" style="left:760px;top:116px">≈ 4 weeks</p>
+      <p class="abs loop-node board" style="left:1190px;top:107px">Change board</p>
+      <p class="abs round r1" style="left:760px;top:116px">Round 1 → redesign</p>
+      <p class="abs round r2" style="left:760px;top:116px">Round 2 → test</p>
+      <p class="abs round r3" style="left:760px;top:116px">Round 3 → approved</p>
+      <p class="abs round weeks" style="left:760px;top:101px"><span>One real case</span>3 boards, ≈ 4 weeks</p>
     </div>
   </section>
 
   <!-- 4 · Demo -->
   <section class="scene" id="demo" data-steps="1">
     <div class="abs head">
-      <p class="eyebrow">Demo</p>
-      <h2 class="one-line">Let’s watch it work.</h2>
+      <p class="eyebrow">Demo · Downstream Agent</p>
+      <h2 class="one-line">So how do we solve this?</h2>
     </div>
     <div class="abs videoframe" data-step="0" style="left:360px;top:300px;width:1200px;height:675px;--d:150ms">
       <video id="demo-video" preload="metadata" playsinline>
@@ -218,20 +237,20 @@
   <section class="scene" id="value" data-steps="2">
     <div class="abs head">
       <p class="eyebrow">What it changes</p>
-      <h2 class="one-line">Departments answer before the board.</h2>
+      <h2 class="one-line">Faster. More complete. Traceable.</h2>
     </div>
     <div class="abs benefits" style="left:128px;top:330px;width:1664px">
       <div class="benefit" data-step="0">
         <h3>Faster feedback</h3>
-        <p class="text">Before the first board</p>
+        <p class="text">Before the first board, not round by round</p>
       </div>
-      <div class="benefit" data-step="0" style="--d:120ms">
-        <h3>Specific questions</h3>
-        <p class="text">With reason and source</p>
+      <div class="benefit" data-step="0">
+        <h3>Fewer gaps</h3>
+        <p class="text">Checked across departments’ documents</p>
       </div>
-      <div class="benefit" data-step="0" style="--d:240ms">
-        <h3>Traceable</h3>
-        <p class="text">Every check on the ticket</p>
+      <div class="benefit" data-step="0">
+        <h3>Full traceability</h3>
+        <p class="text">Every question, source and answer on the ticket</p>
       </div>
     </div>
     <div class="abs state" data-step="1" style="left:128px;top:640px;width:1664px">
@@ -255,6 +274,6 @@
 <div id="progress"><div id="progress-bar"></div></div>
 <div id="counter"></div>
 
-<script src="app.js?v=6"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>
