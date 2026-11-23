@@ -1,6 +1,6 @@
 # Cascade · MPD midterm
 
-The midterm presentation for MPD (23 Nov 2026) as a single web page: five scenes on a fixed 16:9 canvas, stepped through like slides.
+The midterm presentation for MPD (23 Nov 2026) as a single web page: six scenes on a fixed 16:9 canvas, stepped through like slides.
 
 ## Run it
 
@@ -33,6 +33,7 @@ A presentation clicker works too: it sends PageDown and PageUp. The address bar 
 3. **Zoomed in:** one discontinued connector affects five departments; then one click per board round (redesign, test, approved) and the real case.
 4. **Demo:** plays `assets/demo.mp4` if it exists, else shows a placeholder for switching to the live demo.
 5. **What it changes:** three benefits, where we are, and what comes until the Design Fair.
+6. **Q&A:** the closing scene, laid out like the opening one, to end on while taking questions.
 
 ## Demo recording
 
